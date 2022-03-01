@@ -4,10 +4,12 @@ import './App.css';
 
 // PAGES
 import Home from './Pages/Home';
-import Index from './Pages/Index';
+
 
 // COMPONENTS
 import NavBar from './Components/NavBar';
+import Transactions from './Components/Transactions';
+import TransactionDetails from './Components/TransactionDetails';
 
 function App() {
   return (
@@ -17,7 +19,8 @@ function App() {
         <main>
           <Routes>
             <Route path='/' element={<Home />} />
-            <Route path='/transactions' element={<Index />} />
+            <Route path='/transactions' element={<Transactions />} />
+            <Route exact path='/transactions/:index' element={<TransactionDetails />} />
 
           </Routes>
         </main>
