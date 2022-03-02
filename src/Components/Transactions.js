@@ -18,6 +18,16 @@ const Transactions = () => {
             });
     }, []);
 
+    let transactionsTotal = 0;
+
+    transactions.forEach((e) => {
+        transactionsTotal += Number(e.amount);
+    });
+
+    let formatter = (amount) => {
+        return `$${amount}.00`;
+    }
+
     let allTransactions = transactions.map((transaction, index) => {
         return(
             <li key={index}>
@@ -34,7 +44,7 @@ const Transactions = () => {
 
     return(
         <div>
-            <h1>Transactions History</h1>
+            <h1>Bank Account Total: {formatter(transactionsTotal)}</h1>
             <ul>
                 {allTransactions}
             </ul>
