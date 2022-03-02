@@ -4,6 +4,7 @@ import './App.css';
 
 // PAGES
 import Home from './Pages/Home';
+import NewTransaction from './Pages/NewTransaction';
 
 
 // COMPONENTS
@@ -21,6 +22,7 @@ function App() {
             <Route path='/' element={<Home />} />
             <Route path='/transactions' element={<Transactions />} />
             <Route exact path='/transactions/:index' element={<TransactionDetails />} />
+            <Route path='/transactions/new' element={<NewTransaction />} />
 
           </Routes>
         </main>
