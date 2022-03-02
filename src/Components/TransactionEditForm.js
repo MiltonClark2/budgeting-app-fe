@@ -16,10 +16,6 @@ const TransactionEditForm = () => {
 
     const navigate = useNavigate();
 
-    const handleTextChange = (event) => {
-        setTransaction({...transaction, [event.target.id]: event.target.value});
-    };
-
     useEffect(() => {
         axios.get(`${process.env.REACT_APP_API_URL}/transactions/${index}`, transaction)
             .then((res) => {
@@ -28,6 +24,10 @@ const TransactionEditForm = () => {
                 navigate("/not-found");
             });
     }, [index]);
+
+    const handleTextChange = (event) => {
+        setTransaction({...transaction, [event.target.id]: event.target.value});
+    };
 
     const handleSubmit = (event) => {
         event.preventDefault();
