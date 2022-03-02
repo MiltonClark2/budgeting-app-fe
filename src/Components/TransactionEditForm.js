@@ -1,9 +1,11 @@
 // DEPENDENCIES
-import { useState } from "react";
-import { useNavigate, Link } from "react-router-dom";
+import { useState, useEffect } from "react";
+import { useParams, Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 
-const TransactionNewForm = () => {
+const TransactionEditForm = () => {
+    let { index } = useParams();
+
     const [transaction, setTransaction] = useState({
         item_name: "",
         amount: 0,
@@ -18,9 +20,18 @@ const TransactionNewForm = () => {
         setTransaction({...transaction, [event.target.id]: event.target.value});
     };
 
+    useEffect(() => {
+        axios.get(`${process.env.REACT_APP_API_URL}/transactions/${index}`, transaction)
+            .then((res) => {
+                setTransaction(res.data);
+            }).catch((err) => {
+                navigate("/not-found");
+            });
+    }, [index]);
+
     const handleSubmit = (event) => {
         event.preventDefault();
-        axios.post(`${process.env.REACT_APP_API_URL}/transactions`, transaction)
+        axios.put(`${process.env.REACT_APP_API_URL}/transactions/${index}`, transaction)
             .then((res) => {
                 navigate("/transactions");
             }).catch((err) => {
@@ -29,7 +40,7 @@ const TransactionNewForm = () => {
     };
 
     return(
-        <div className="New">
+        <div className="Edit">
             <form onSubmit={handleSubmit}>
                 <label htmlFor="date">Date</label>
                 <input
@@ -73,13 +84,13 @@ const TransactionNewForm = () => {
                     placeholder="category"
                 />
                 <br />
-                <input type="submit" value="CREATE NEW ITEM"/>  
+                <input type="submit" />  
             </form>
-            <Link to={'/transactions'}>
+            <Link to={`/transactions/${index}`}>
                 <button>Back</button>
             </Link>
         </div>
     );
 };
 
-export default TransactionNewForm;
+export default TransactionEditForm;
